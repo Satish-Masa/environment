@@ -1,0 +1,65 @@
+# ~/.config/starship.toml
+scan_timeout = 10
+format = """
+$kubernetes\
+$gcloud\
+$directory\
+$git_branch\
+$git_commit\
+$git_state\
+$git_metrics\
+$git_status
+$character"""
+
+[character]
+error_symbol = "[❯](bold red)"
+success_symbol = "[❯](bold green)"
+
+[directory]
+truncation_length = 8
+truncation_symbol = '…/'
+style = "48"
+
+[git_branch]
+format = "[$symbol  $branch]($style) "
+symbol = "⚙️"
+style = "bold 250"
+
+[git_commit]
+commit_hash_length = 8
+style = "bold white"
+
+[git_state]
+format = '[\($state( $progress_current of $progress_total)\)]($style) '
+
+[git_status]
+conflicted = "⚔️  "
+ahead = "🏎️ 💨 × ${count} "
+behind = "🐢 × ${count} "
+diverged = "🔱 🏎️ 💨 × ${ahead_count} 🐢 × ${behind_count} "
+untracked = "🍉 × ${count} "
+stashed = "📦 "
+modified = "🔧 × ${count} "
+staged = "🗃️  × ${count} "
+renamed = "📛 × ${count} "
+deleted = "🗑️ × ${count} "
+style = "bright-white"
+format = "$all_status$ahead_behind"
+
+[docker_context]
+format = 'via [🐋 $context](blue bold)'
+
+[gcloud]
+format = '[$symbol($project)]($style) '
+style = 'bold white'
+
+[kubernetes]
+format = '[⛵ $context](bold yellow) '
+disabled = false
+[kubernetes.context_aliases]
+'dev.local.cluster.k8s' = 'dev'
+'.*/openshift-cluster/.*' = 'openshift'
+'gke_.*_(?P<var_cluster>[\w-]+)' = 'gke-$var_cluster'
+[kubernetes.user_aliases]
+'dev.local.cluster.k8s' = 'dev'
+'root/.*' = 'root'
